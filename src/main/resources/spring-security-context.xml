@@ -22,6 +22,7 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 	<security:authentication-manager erase-credentials="true" >
 		<security:authentication-provider user-service-ref="userService">
 			<security:password-encoder ref="passwordEncoder" />
+            <security:password-encoder hash="md5"/>
 		</security:authentication-provider>
 	</security:authentication-manager>
 

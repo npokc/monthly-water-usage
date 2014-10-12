@@ -11,17 +11,17 @@ public class SignupForm {
 
     @NotBlank(message = SignupForm.NOT_BLANK_MESSAGE)
 	@Email(message = SignupForm.EMAIL_MESSAGE)
-	private String email;
+	private String username;
 
     @NotBlank(message = SignupForm.NOT_BLANK_MESSAGE)
 	private String password;
 
-    public String getEmail() {
-		return email;
+    public String getUsername() {
+		return username;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -33,6 +33,6 @@ public class SignupForm {
 	}
 
 	public Account createAccount() {
-        return new Account(getEmail(), getPassword(), "ROLE_USER");
+        return new Account(getUsername(), getPassword(), "ROLE_USER");
 	}
 }

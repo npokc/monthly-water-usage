@@ -7,29 +7,25 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "account")
-@NamedQuery(name = Account.FIND_BY_EMAIL, query = "select a from Account a where a.email = :email")
+@NamedQuery(name = Account.FIND_BY_USERNAME, query = "select a from Account a where a.username = :username")
 public class Account implements java.io.Serializable {
 
-	public static final String FIND_BY_EMAIL = "Account.findByEmail";
+	public static final String FIND_BY_USERNAME = "Account.findByUserName";
 
 	@Id
 	@GeneratedValue
 	private Long id;
 
 	@Column(unique = true)
-	private String email;
+	private String username;
 	
 	@JsonIgnore
 	private String password;
 
 	private String role = "ROLE_USER";
-
-    protected Account() {
-
-	}
 	
-	public Account(String email, String password, String role) {
-		this.email = email;
+	public Account(String username, String password, String role) {
+		this.username = username;
 		this.password = password;
 		this.role = role;
 	}
@@ -38,12 +34,12 @@ public class Account implements java.io.Serializable {
 		return id;
 	}
 
-    public String getEmail() {
-		return email;
+    public String getUsername() {
+		return username;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

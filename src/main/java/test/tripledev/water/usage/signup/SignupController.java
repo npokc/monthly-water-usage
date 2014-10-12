@@ -23,13 +23,13 @@ public class SignupController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "signup")
+	//@RequestMapping(value = "signup")
 	public String signup(Model model) {
 		model.addAttribute(new SignupForm());
         return SIGNUP_VIEW_NAME;
 	}
 	
-	@RequestMapping(value = "signup", method = RequestMethod.POST)
+	//@RequestMapping(value = "signup", method = RequestMethod.POST)
 	public String signup(@Valid @ModelAttribute SignupForm signupForm, Errors errors, RedirectAttributes ra) {
 		if (errors.hasErrors()) {
 			return SIGNUP_VIEW_NAME;

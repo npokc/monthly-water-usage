@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.annotation.*;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
@@ -27,8 +28,8 @@ class SecurityConfig {
 	}
 	
 	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new StandardPasswordEncoder();
+	public Md5PasswordEncoder passwordEncoder() {
+		return new Md5PasswordEncoder();
 	}
 
   @Profile("test")
