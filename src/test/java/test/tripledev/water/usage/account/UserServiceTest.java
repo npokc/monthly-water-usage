@@ -24,7 +24,7 @@ public class UserServiceTest {
 	private UserService userService = new UserService();
 
 	@Mock
-	private AccountRepository accountRepositoryMock;
+	private AccountService accountServiceMock;
 
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
@@ -34,7 +34,7 @@ public class UserServiceTest {
 		// act
 		userService.initialize();
 		// assert
-		verify(accountRepositoryMock, times(2)).save(any(Account.class));
+		verify(accountServiceMock, times(2)).save(any(Account.class));
 	}
 
 	@Test
@@ -43,7 +43,7 @@ public class UserServiceTest {
 		thrown.expect(UsernameNotFoundException.class);
 		thrown.expectMessage("user not found");
 
-		when(accountRepositoryMock.findByUsername("user@example.com")).thenReturn(null);
+		when(accountServiceMock.findByUsername("user@example.com")).thenReturn(null);
 		// act
 		userService.loadUserByUsername("user@example.com");
 	}
@@ -52,7 +52,7 @@ public class UserServiceTest {
 	public void shouldReturnUserDetails() {
 		// arrange
 		Account demoUser = new Account("user@example.com", "demo", "ROLE_USER");
-		when(accountRepositoryMock.findByUsername("user@example.com")).thenReturn(demoUser);
+		when(accountServiceMock.findByUsername("user@example.com")).thenReturn(demoUser);
 
 		// act
 		UserDetails userDetails = userService.loadUserByUsername("user@example.com");
