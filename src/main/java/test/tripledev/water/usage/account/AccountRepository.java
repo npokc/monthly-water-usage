@@ -8,6 +8,8 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 @Transactional(readOnly = true)
 public class AccountRepository {
@@ -36,5 +38,12 @@ public class AccountRepository {
         }
     }
 
+        public List<Account> findAllUsers() {
+        try {
+            return entityManager.createQuery("SELECT a FROM Account a", Account.class).getResultList();
+        } catch (PersistenceException e) {
+            return null;
+        }
+    }
 
 }

@@ -23,8 +23,11 @@ public class Account implements java.io.Serializable {
 	private String password;
 
 	private String role = "ROLE_USER";
-	
-	public Account(String username, String password, String role) {
+
+    public Account() {
+    }
+
+    public Account(String username, String password, String role) {
 		this.username = username;
 		this.password = password;
 		this.role = role;

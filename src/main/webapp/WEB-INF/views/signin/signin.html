@@ -14,9 +14,13 @@
     <fieldset>
         <legend>Please Sign In</legend>
         <div class="form-group">
-            <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+            <label for="inputUser" class="col-lg-2 control-label">User</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="j_username" />
+                    <select th:field="*{usernames}" class="form-control" id="inputUser" name="j_username">
+                        <option th:each="username : ${usernames}"
+                                th:value="${username.username}"
+                                th:text="${username.username}">Username</option>
+                    </select>
             </div>
         </div>
         <div class="form-group">
