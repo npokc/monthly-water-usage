@@ -10,7 +10,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 public class Account implements java.io.Serializable {
 
 	@Id
-	@GeneratedValue
+    @GeneratedValue
 	private Long id;
 
 	@Column(unique = true)

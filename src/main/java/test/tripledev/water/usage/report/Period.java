@@ -4,14 +4,14 @@ import java.time.Month;
 
 public class Period {
 
-    private Month month;
+    private int month;
     private int year;
 
-    public Month getMonth() {
+    public int getMonth() {
         return month;
     }
 
-    public void setMonth(Month month) {
+    public void setMonth(int month) {
         this.month = month;
     }
 

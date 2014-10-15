@@ -14,9 +14,9 @@
             <label for="inputMonth" class="col-lg-2 control-label">Month</label>
             <div class="col-lg-10">
                 <select class="form-control" th:field="${period.month}">
-                    <option th:each="month : ${months}"
-                            th:value="${month}"
-                            th:text="${month}" class="form-control" id="inputMonth"/>
+                    <option th:each="i: ${#numbers.sequence(1, 12)}" th:value="${i}"
+                            th:text="#{${'label.month.' + i}}"
+                            class="form-control" id="inputMonth"/>
                 </select>
             </div>
         </div>

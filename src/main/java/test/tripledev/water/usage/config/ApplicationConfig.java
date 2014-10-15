@@ -3,9 +3,11 @@ package test.tripledev.water.usage.config;
 import static org.springframework.context.annotation.ComponentScan.Filter;
 
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 

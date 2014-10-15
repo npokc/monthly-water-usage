@@ -1,0 +1,10 @@
+package test.tripledev.water.usage.dataentry;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+interface DataEntryRepository extends JpaRepository<DataEntry, Long> {
+
+    DataEntry findByMonthAndYearAndUsername(int month, int year, String username);
+}
