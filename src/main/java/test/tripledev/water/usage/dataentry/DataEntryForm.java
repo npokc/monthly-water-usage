@@ -1,29 +1,38 @@
 package test.tripledev.water.usage.dataentry;
 
 import org.hibernate.validator.constraints.NotBlank;
+import test.tripledev.water.usage.validator.Year;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
+import java.time.Month;
 
 public class DataEntryForm {
 
 	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
 
+    @Enumerated(EnumType.STRING)
     @NotBlank(message = DataEntryForm.NOT_BLANK_MESSAGE)
-    private String month;
-    @NotBlank(message = DataEntryForm.NOT_BLANK_MESSAGE)
-    private int year;
-    @NotBlank(message = DataEntryForm.NOT_BLANK_MESSAGE)
+    private Month month;
+
+    @Year
+    @NotNull
+    private Integer year;
+
     private float kitchenHot;
-    @NotBlank(message = DataEntryForm.NOT_BLANK_MESSAGE)
+
     private float kitchenCold;
-    @NotBlank(message = DataEntryForm.NOT_BLANK_MESSAGE)
+
     private float bathroomHot;
-    @NotBlank(message = DataEntryForm.NOT_BLANK_MESSAGE)
+
     private float bathroomCold;
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
@@ -59,11 +68,11 @@ public class DataEntryForm {
         this.bathroomCold = bathroomCold;
     }
 
-    public String getMonth() {
+    public Month getMonth() {
         return month;
     }
 
-    public void setMonth(String month) {
+    public void setMonth(Month month) {
         this.month = month;
     }
 }

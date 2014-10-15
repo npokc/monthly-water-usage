@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign In</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+</head>
+<body>
+<form class="form-narrow form-horizontal" method="post" th:action="@{/report}" th:object="${period}">
+    <fieldset>
+        <legend>Please Choose Period</legend>
+        <div class="form-group">
+            <label for="inputMonth" class="col-lg-2 control-label">Month</label>
+            <div class="col-lg-10">
+                <select class="form-control" th:field="${period.month}">
+                    <option th:each="month : ${months}"
+                            th:value="${month}"
+                            th:text="${month}" class="form-control" id="inputMonth"/>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputYear" class="col-lg-2 control-label">Year</label>
+            <div class="col-lg-10">
+                <select class="form-control" th:field="${period.year}">
+                    <option th:each="year : ${years}"
+                            th:value="${year}"
+                            th:text="${year}" class="form-control" id="inputYear"/>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <button type="submit" class="btn btn-default">Search</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+</body>
+</html>
