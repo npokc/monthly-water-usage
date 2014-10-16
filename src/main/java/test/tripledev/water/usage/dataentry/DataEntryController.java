@@ -25,10 +25,7 @@ public class DataEntryController {
     private static final String DATA_ENTRY_VIEW = "dataentry/dataentry";
 
     @Autowired
-    private AccountService accountService;
-
-    @Autowired
-    private UserService userService;
+    DataEntryService dataEntryService;
 
     @Autowired
     private DataEntryValidator dataEntryValidator;
@@ -38,19 +35,22 @@ public class DataEntryController {
         binder.setValidator(dataEntryValidator);
     }
 
-    @RequestMapping(value = {"dataentry", "/"})
+    @RequestMapping(value = {"/dataentry", "/"})
     public ModelAndView insertData(ModelAndView modelAndView) {
         initModelAndView(new DataEntry(), modelAndView);
         return modelAndView;
     }
 
-    @RequestMapping(value = "dataentry", method = RequestMethod.POST)
+    @RequestMapping(value = "/dataentry", method = RequestMethod.POST)
     public ModelAndView saveData(@Valid @ModelAttribute DataEntry dataEntry, Errors errors, RedirectAttributes ra, ModelAndView modelAndView) {
 
         initModelAndView(dataEntry, modelAndView);
         if (errors.hasErrors()) {
             return modelAndView;
         }
+
+        dataEntryService.saveDataEntry(dataEntry);
+
         return modelAndView;
     }
 

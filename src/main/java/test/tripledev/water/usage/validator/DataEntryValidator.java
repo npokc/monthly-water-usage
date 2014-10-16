@@ -69,7 +69,7 @@ public class DataEntryValidator implements Validator {
 
     private void validateNumberPrecision(Errors errors, BigDecimal number, String propertyName) {
         if(number == null){
-            errors.rejectValue(propertyName, "error.cannot.be.empty" + propertyName);
+            errors.rejectValue(propertyName, "error.cannot.be.empty." + propertyName);
             return;
         }
         if(number.scale() != 3){

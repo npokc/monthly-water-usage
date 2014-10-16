@@ -1,18 +1,17 @@
 package test.tripledev.water.usage.report;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import test.tripledev.water.usage.dataentry.DataEntry;
 import test.tripledev.water.usage.dataentry.DataEntryService;
 
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class ReportController {
@@ -25,12 +24,7 @@ public class ReportController {
 
         modelAndView.addObject("period", new Period());
 
-        List<Integer> years = new ArrayList<Integer>();
-        years.add(Calendar.getInstance().get(Calendar.YEAR) - 1);
-        years.add(Calendar.getInstance().get(Calendar.YEAR));
-        years.add(Calendar.getInstance().get(Calendar.YEAR) + 1);
-
-        modelAndView.addObject("years", years);
+        modelAndView.addObject("years", getAllowedYears());
         modelAndView.setViewName("report/report");
 
         return modelAndView;
@@ -39,14 +33,22 @@ public class ReportController {
     @RequestMapping(value="/report", method = RequestMethod.POST)
     public ModelAndView getReport(ModelAndView modelAndView, @ModelAttribute Period period){
 
-        List<Integer> years = new ArrayList<Integer>();
-        years.add(Calendar.getInstance().get(Calendar.YEAR) - 1);
-        years.add(Calendar.getInstance().get(Calendar.YEAR));
-        years.add(Calendar.getInstance().get(Calendar.YEAR) + 1);
+        modelAndView.addObject("years", getAllowedYears());
 
-        modelAndView.addObject("years", years);
+        Map<String, DataEntry> reportData = dataEntryService.findDataForAllUsersByMonthAndYear(period.getMonth(), period.getYear());
+        modelAndView.addObject("reportData", reportData);
+
         modelAndView.setViewName("report/report");
 
         return modelAndView;
+    }
+
+    private List<Integer> getAllowedYears() {
+        List<Integer> years = new ArrayList<Integer>();
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        years.add(currentYear - 1);
+        years.add(currentYear);
+        years.add(currentYear + 1);
+        return years;
     }
 }

@@ -35,6 +35,13 @@
                 <button type="submit" class="btn btn-default">Search</button>
             </div>
         </div>
+        <th:block th:if="${reportData != null}">
+            <table th:object="${reportData}">
+            <tr th:each="data : ${reportData}" class="form-control">
+                 <td th:text="${data.key}"/>
+                </tr>
+            </table>
+        </th:block>
     </fieldset>
 </form>
 </body>
