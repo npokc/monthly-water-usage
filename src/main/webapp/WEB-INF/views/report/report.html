@@ -3,8 +3,9 @@
 <head>
     <title>Sign In</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
-    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}"/>
 </head>
 <body>
 <form class="form-narrow form-horizontal" method="post" th:action="@{/report}" th:object="${period}">
@@ -12,6 +13,7 @@
         <legend>Please Choose Period</legend>
         <div class="form-group">
             <label for="inputMonth" class="col-lg-2 control-label">Month</label>
+
             <div class="col-lg-10">
                 <select class="form-control" th:field="${period.month}">
                     <option th:each="i: ${#numbers.sequence(1, 12)}" th:value="${i}"
@@ -22,6 +24,7 @@
         </div>
         <div class="form-group">
             <label for="inputYear" class="col-lg-2 control-label">Year</label>
+
             <div class="col-lg-10">
                 <select class="form-control" th:field="${period.year}">
                     <option th:each="year : ${years}"
@@ -35,11 +38,24 @@
                 <button type="submit" class="btn btn-default">Search</button>
             </div>
         </div>
-        <th:block th:if="${reportData != null}">
-            <table th:object="${reportData}">
-            <tr th:each="data : ${reportData}" class="form-control">
-                 <td th:text="${data.key}"/>
+        <th:block th:if="${reportData} != null">
+            <table id="reportTable" dt:table="true">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Hot</th>
+                    <th>Cold</th>
+                    <th>Total</th>
                 </tr>
+                </thead>
+                <tbody th:remove="all-but-first">
+                <tr th:each="data : ${reportData}">
+                    <td th:text="${data?.key}">username</td>
+                    <td th:text="${data?.value != null} ? ${data.value.kitchenHot} + ${data.value.bathroomHot} : '-'"/>
+                    <td th:text="${data?.value != null} ? ${data.value.kitchenCold} + ${data.value.bathroomCold} : '-'"/>
+                    <td th:text="${data?.value != null} ? ${data.value.kitchenCold} + ${data.value.bathroomCold} + ${data.value.kitchenHot} + ${data.value.bathroomHot} : '-'"/>
+                </tr>
+                </tbody>
             </table>
         </th:block>
     </fieldset>

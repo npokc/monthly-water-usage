@@ -35,9 +35,8 @@ public class ReportController {
 
         modelAndView.addObject("years", getAllowedYears());
 
-        Map<String, DataEntry> reportData = dataEntryService.findDataForAllUsersByMonthAndYear(period.getMonth(), period.getYear());
+        Map<String, DataEntry> reportData = dataEntryService.findDataForAllUsersAndCalculateConsumption(period.getMonth(), period.getYear());
         modelAndView.addObject("reportData", reportData);
-
         modelAndView.setViewName("report/report");
 
         return modelAndView;

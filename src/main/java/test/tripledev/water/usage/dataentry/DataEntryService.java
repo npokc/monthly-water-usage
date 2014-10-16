@@ -8,6 +8,7 @@ import test.tripledev.water.usage.account.Account;
 import test.tripledev.water.usage.account.AccountService;
 
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.time.Month;
 import java.util.HashMap;
 import java.util.List;
@@ -37,14 +38,18 @@ public class DataEntryService {
         dataEntryRepository.save(dataEntry);
     }
 
-    public Map<String, DataEntry> findDataForAllUsersByMonthAndYear(int month, int year){
+    public Map<String, DataEntry> findDataForAllUsersAndCalculateConsumption(int month, int year){
         Map<String, DataEntry> allUsersData = new TreeMap<String, DataEntry>();
 
-        for(String username : accountService.findAllUsernames()){
+        List<String> allUsernames = accountService.findAllUsernames();
+        for(String username : allUsernames){
             allUsersData.put(username, null);
         }
 
-        for(DataEntry dataEntry : findByMonthAndYear(month, year)){
+        List<DataEntry> usersByMonthAndYear = findByMonthAndYear(month, year);
+
+        for(DataEntry dataEntry : usersByMonthAndYear){
+            dataEntry.calculateTotals();
             allUsersData.put(dataEntry.getUsername(), dataEntry);
         }
         return allUsersData;

@@ -23,6 +23,12 @@ public class DataEntry {
     private BigDecimal bathroomHot;
     @Column(name="bathroom_cold")
     private BigDecimal bathroomCold;
+    @Transient
+    private BigDecimal totalHot;
+    @Transient
+    private BigDecimal totalCold;
+    @Transient
+    private BigDecimal total;
 
     public DataEntry() {
     }
@@ -89,5 +95,36 @@ public class DataEntry {
 
     public void setBathroomCold(BigDecimal bathroomCold) {
         this.bathroomCold = bathroomCold;
+    }
+
+    public void setTotalHot(BigDecimal totalHot) {
+        this.totalHot = totalHot;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public void setTotalCold(BigDecimal totalCold) {
+        this.totalCold = totalCold;
+    }
+
+
+    public BigDecimal getTotalHot(){
+        return kitchenHot.add(bathroomHot);
+    }
+
+    public BigDecimal getTotalCold(){
+        return kitchenHot.add(bathroomHot);
+    }
+
+    public BigDecimal getTotal(){
+        return getTotalCold().add(getBathroomHot());
+    }
+
+    public void calculateTotals(){
+        totalCold = getTotalCold();
+        totalHot = getTotalHot();
+        total = totalCold.add(totalHot);
     }
 }
