@@ -111,20 +111,20 @@ public class DataEntry {
 
 
     public BigDecimal getTotalHot(){
-        return kitchenHot.add(bathroomHot);
+        return totalCold;
     }
 
     public BigDecimal getTotalCold(){
-        return kitchenHot.add(bathroomHot);
+        return totalCold;
     }
 
     public BigDecimal getTotal(){
-        return getTotalCold().add(getBathroomHot());
+        return total;
     }
 
     public void calculateTotals(){
-        totalCold = getTotalCold();
-        totalHot = getTotalHot();
+        totalCold = getKitchenCold().add(getBathroomCold());
+        totalHot = getKitchenHot().add(bathroomHot);
         total = totalCold.add(totalHot);
     }
 }

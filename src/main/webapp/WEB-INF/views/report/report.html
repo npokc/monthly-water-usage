@@ -50,10 +50,19 @@
                 </thead>
                 <tbody th:remove="all-but-first">
                 <tr th:each="data : ${reportData}">
-                    <td th:text="${data?.key}">username</td>
-                    <td th:text="${data?.value != null} ? ${data.value.kitchenHot} + ${data.value.bathroomHot} : '-'"/>
-                    <td th:text="${data?.value != null} ? ${data.value.kitchenCold} + ${data.value.bathroomCold} : '-'"/>
-                    <td th:text="${data?.value != null} ? ${data.value.kitchenCold} + ${data.value.bathroomCold} + ${data.value.kitchenHot} + ${data.value.bathroomHot} : '-'"/>
+                    <th:block th:if="${data.key} != total">
+                        <td th:if="${data?.value == null}" th:text="${data.key}" style="color: red"/>
+                        <td th:if="${data?.value != null}" th:text="${data.key}"/>
+                        <td th:text="${data?.value != null} ? ${data.value.kitchenHot} + ${data.value.bathroomHot} : '-'"/>
+                        <td th:text="${data?.value != null} ? ${data.value.kitchenCold} + ${data.value.bathroomCold} : '-'"/>
+                        <td th:text="${data?.value != null} ? ${data.value.kitchenCold} + ${data.value.bathroomCold} + ${data.value.kitchenHot} + ${data.value.bathroomHot} : '-'"/>
+                    </th:block>
+                    <th:block th:if="${data.key} == total">
+                        <td th:text="${data.key}"/>
+                        <td th:text="${data.value.totalHot}"/>
+                        <td th:text="${data.value.totalCold}"/>
+                        <td th:text="${data.value.total}"/>
+                    </th:block>
                 </tr>
                 </tbody>
             </table>

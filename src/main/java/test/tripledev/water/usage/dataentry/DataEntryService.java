@@ -47,11 +47,23 @@ public class DataEntryService {
         }
 
         List<DataEntry> usersByMonthAndYear = findByMonthAndYear(month, year);
-
+        BigDecimal totalHot = new BigDecimal(0).setScale(3);
+        BigDecimal totalCold = new BigDecimal(0).setScale(3);
         for(DataEntry dataEntry : usersByMonthAndYear){
             dataEntry.calculateTotals();
+            totalHot = totalHot.add(dataEntry.getTotalHot());
+            totalCold = totalCold.add(dataEntry.getTotalCold());
             allUsersData.put(dataEntry.getUsername(), dataEntry);
         }
+        allUsersData.put("total", createTotalDataEntry(totalHot, totalCold));
         return allUsersData;
+    }
+
+    private DataEntry createTotalDataEntry(BigDecimal totalHot, BigDecimal totalCold) {
+        DataEntry total = new DataEntry();
+        total.setTotalHot(totalHot);
+        total.setTotalCold(totalCold);
+        total.setTotal(totalHot.add(totalCold));
+        return total;
     }
 }
