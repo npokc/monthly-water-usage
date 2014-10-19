@@ -32,7 +32,7 @@ public class DataEntryController {
         binder.setValidator(dataEntryValidator);
     }
 
-    @RequestMapping(value = "/dataentry")
+    @RequestMapping(value = {"/dataentry", "/"})
     public ModelAndView insertData(ModelAndView modelAndView) {
         initModelAndView(new DataEntry(), modelAndView);
         return modelAndView;

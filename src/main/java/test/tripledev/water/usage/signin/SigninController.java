@@ -12,7 +12,7 @@ public class SigninController {
     @Autowired
     AccountService accountService;
 
-	@RequestMapping(value = {"/signin", "/"})
+	@RequestMapping(value = "/signin")
 	public String signin(Model model) {
         model.addAttribute("usernames", accountService.findAllUsernames());
         return "signin/signin";
