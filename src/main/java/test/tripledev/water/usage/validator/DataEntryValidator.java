@@ -10,7 +10,6 @@ import test.tripledev.water.usage.dataentry.DataEntry;
 import test.tripledev.water.usage.dataentry.DataEntryService;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Component
 public class DataEntryValidator implements Validator {

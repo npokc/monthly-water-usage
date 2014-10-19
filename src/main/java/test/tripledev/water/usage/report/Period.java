@@ -1,7 +1,5 @@
 package test.tripledev.water.usage.report;
 
-import java.time.Month;
-
 public class Period {
 
     private int month;

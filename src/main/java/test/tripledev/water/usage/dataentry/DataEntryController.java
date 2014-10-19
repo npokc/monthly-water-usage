@@ -1,21 +1,17 @@
 package test.tripledev.water.usage.dataentry;
 
-import javax.validation.Valid;
-
-import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import test.tripledev.water.usage.account.*;
-import test.tripledev.water.usage.support.web.*;
 import test.tripledev.water.usage.validator.DataEntryValidator;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -36,14 +32,14 @@ public class DataEntryController {
         binder.setValidator(dataEntryValidator);
     }
 
-    @RequestMapping(value = {"/dataentry"})
+    @RequestMapping(value = "/dataentry")
     public ModelAndView insertData(ModelAndView modelAndView) {
         initModelAndView(new DataEntry(), modelAndView);
         return modelAndView;
     }
 
     @RequestMapping(value = "/dataentry", method = RequestMethod.POST)
-    public ModelAndView saveData(@Valid @ModelAttribute DataEntry dataEntry, Errors errors, RedirectAttributes ra, ModelAndView modelAndView) {
+    public ModelAndView saveData(@Valid @ModelAttribute DataEntry dataEntry, Errors errors, ModelAndView modelAndView) {
         initModelAndView(dataEntry, modelAndView);
         if (errors.hasErrors()) {
             return modelAndView;

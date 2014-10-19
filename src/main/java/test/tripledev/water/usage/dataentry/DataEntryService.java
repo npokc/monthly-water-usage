@@ -1,17 +1,13 @@
 package test.tripledev.water.usage.dataentry;
 
 import org.joda.time.LocalDate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import test.tripledev.water.usage.account.Account;
 import test.tripledev.water.usage.account.AccountService;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.time.Month;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;

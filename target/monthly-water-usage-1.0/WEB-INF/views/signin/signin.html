@@ -14,9 +14,13 @@
     <fieldset>
         <legend>Please Sign In</legend>
         <div class="form-group">
-            <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+            <label for="inputUser" class="col-lg-2 control-label">User</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="j_username" />
+                <select class="form-control" name="j_username">
+                    <option th:each="username : ${usernames}"
+                            th:value="${username}"
+                            th:text="${username}" class="form-control" id="inputUser"/>
+                </select>
             </div>
         </div>
         <div class="form-group">
@@ -27,21 +31,7 @@
         </div>
         <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="_spring_security_remember_me" /> Remember me
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-lg-offset-2 col-lg-10">
                 <button type="submit" class="btn btn-default">Sign in</button>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-lg-offset-2 col-lg-10">
-                <p>New here? <a href="signup" th:href="@{/signup}">Sign Up</a></p>
             </div>
         </div>
     </fieldset>
