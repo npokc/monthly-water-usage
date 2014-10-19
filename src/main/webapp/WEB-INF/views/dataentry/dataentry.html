@@ -3,67 +3,84 @@
 <head>
     <title>Data entry</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
-    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}"/>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
+<div th:replace="fragments/header :: header">Header</div>
 <form class="form-narrow form-horizontal" method="post" th:action="@{/dataentry}" th:object="${dataEntry}">
     <!-- /* Show general error message when form contains errors */ -->
     <th:block th:if="${#fields.hasErrors('${dataEntry.*}')}">
-        <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
-        <span class="help-block" th:if="${#fields.hasErrors('${dataEntry.*}')}" th:errors="*{global}">Incorrect entry</span>
+        <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">
+            Alert
+        </div>
+        <span class="help-block" th:if="${#fields.hasErrors('${dataEntry.*}')}"
+              th:errors="*{global}">Incorrect entry</span>
     </th:block>
     <fieldset>
         <legend>Please Insert Your Data</legend>
         <div class="form-group" th:classappend="${#fields.hasErrors('month')}? 'has-error'">
             <label for="month" class="col-lg-2 control-label">Month</label>
+
             <div class="col-lg-10">
                 <select class="form-control" th:field="*{month}">
                     <option th:each="i: ${#numbers.sequence(1, 12)}" th:value="${i}"
                             th:text="#{${'label.month.' + i}}"
                             class="form-control" id="inputMonth"/>
-                    <span class="help-block" th:if="${#fields.hasErrors('month')}" th:errors="*{month}">Incorrect month</span>
+                    <span class="help-block" th:if="${#fields.hasErrors('month')}"
+                          th:errors="*{month}">Incorrect month</span>
                 </select>
             </div>
         </div>
         <div class="form-group" th:classappend="${#fields.hasErrors('year')}? 'has-error'">
             <label for="year" class="col-lg-2 control-label">Year</label>
+
             <div class="col-lg-10">
                 <select class="form-control" th:field="*{year}">
                     <option th:each="year : ${years}"
                             th:value="${year}"
                             th:text="${year}" class="form-control" id="year"/>
-                    <span class="help-block" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Incorrect year</span>
+                    <span class="help-block" th:if="${#fields.hasErrors('year')}"
+                          th:errors="*{year}">Incorrect year</span>
                 </select>
             </div>
         </div>
         <div class="form-group" th:classappend="${#fields.hasErrors('kitchenHot')}? 'has-error'">
             <label for="kitchenHot" class="col-lg-2 control-label">Kitchen Hot</label>
+
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="kitchenHot" placeholder="Kitchen Hot" th:field="*{kitchenHot}" />
+                <input type="text" class="form-control" id="kitchenHot" placeholder="Kitchen Hot"
+                       th:field="*{kitchenHot}"/>
                 <span class="help-block" th:if="${#fields.hasErrors('kitchenHot')}" th:errors="*{kitchenHot}">Incorrect data</span>
             </div>
         </div>
         <div class="form-group" th:classappend="${#fields.hasErrors('kitchenCold')}? 'has-error'">
             <label for="kitchenCold" class="col-lg-2 control-label">Kitchen Cold</label>
+
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="kitchenCold" placeholder="Kitchen Cold" th:field="*{kitchenCold}" />
+                <input type="text" class="form-control" id="kitchenCold" placeholder="Kitchen Cold"
+                       th:field="*{kitchenCold}"/>
                 <span class="help-block" th:if="${#fields.hasErrors('kitchenCold')}" th:errors="*{kitchenCold}">Incorrect data</span>
             </div>
         </div>
         <div class="form-group" th:classappend="${#fields.hasErrors('bathroomHot')}? 'has-error'">
             <label for="bathroomHot" class="col-lg-2 control-label">Bathroom Hot</label>
+
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="bathroomHot" placeholder="Bathroom Hot" th:field="*{bathroomHot}" />
+                <input type="text" class="form-control" id="bathroomHot" placeholder="Bathroom Hot"
+                       th:field="*{bathroomHot}"/>
                 <span class="help-block" th:if="${#fields.hasErrors('bathroomHot')}" th:errors="*{bathroomHot}">Incorrect data</span>
             </div>
         </div>
         <div class="form-group" th:classappend="${#fields.hasErrors('bathroomCold')}? 'has-error'">
             <label for="bathroomCold" class="col-lg-2 control-label">Bathroom Cold</label>
+
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="bathroomCold" placeholder="Bathroom Cold" th:field="*{bathroomCold}" />
+                <input type="text" class="form-control" id="bathroomCold" placeholder="Bathroom Cold"
+                       th:field="*{bathroomCold}"/>
                 <span class="help-block" th:if="${#fields.hasErrors('bathroomCold')}" th:errors="*{bathroomCold}">Incorrect data</span>
             </div>
         </div>
@@ -72,6 +89,53 @@
                 <button type="submit" class="btn btn-default">Save</button>
             </div>
         </div>
+        <th:block th:if="${previousMonthData} != null">
+            <legend>Consumption</legend>
+            <ul style="list-style-type:none">
+                <li class="form-group">
+                <label class="col-lg-2 control-label">Kitchen Hot</label>
+                    <div class="col-lg-10">
+                        <label th:text="${dataEntry.kitchenHot} - ${previousMonthData.kitchenHot}"></label>
+                    </div>
+                </li>
+                <li class="form-group">
+                    <label class="col-lg-2 control-label">Bathroom Hot</label>
+                    <div class="col-lg-10">
+                        <label th:text="${dataEntry.bathroomHot} - ${previousMonthData.bathroomHot}"></label>
+                    </div>
+                </li>
+                <li class="form-group">
+                    <label class="col-lg-2 control-label">Kitchen Cold</label>
+                    <div class="col-lg-10">
+                        <label th:text="${dataEntry.kitchenCold} - ${previousMonthData.kitchenCold}"></label>
+                    </div>
+                </li>
+                <li class="form-group">
+                    <label class="col-lg-2 control-label">Bathroom Cold</label>
+                    <div class="col-lg-10">
+                        <label th:text="${dataEntry.bathroomCold} - ${previousMonthData.bathroomCold}"></label>
+                    </div>
+                </li>
+                <li class="form-group">
+                    <label class="col-lg-2 control-label">Total Hot</label>
+                    <div class="col-lg-10">
+                        <label th:text="${dataEntry.totalHot} - ${previousMonthData.totalHot}"></label>
+                    </div>
+                </li>
+                <li class="form-group">
+                    <label class="col-lg-2 control-label">Total Cold</label>
+                    <div class="col-lg-10">
+                        <label th:text="${dataEntry.totalCold} - ${previousMonthData.totalCold}"></label>
+                    </div>
+                </li>
+                <li class="form-group">
+                    <label class="col-lg-2 control-label">Total</label>
+                    <div class="col-lg-10">
+                        <label th:text="${dataEntry.total} - ${previousMonthData.total}"></label>
+                    </div>
+                </li>
+            </ul>
+        </th:block>
     </fieldset>
 </form>
 </body>

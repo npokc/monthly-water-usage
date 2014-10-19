@@ -8,6 +8,7 @@
     <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}"/>
 </head>
 <body>
+<div th:replace="fragments/header :: header">Header</div>
 <form class="form-narrow form-horizontal" method="post" th:action="@{/report}" th:object="${period}">
     <fieldset>
         <legend>Please Choose Period</legend>
@@ -40,6 +41,10 @@
         </div>
         <th:block th:if="${reportData} != null">
             <table id="reportTable" dt:table="true">
+                <col width="130"/>
+                <col width="80"/>
+                <col width="80"/>
+                <col width="80"/>
                 <thead>
                 <tr>
                     <th>Username</th>

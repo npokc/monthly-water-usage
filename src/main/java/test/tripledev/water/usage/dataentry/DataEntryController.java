@@ -2,6 +2,7 @@ package test.tripledev.water.usage.dataentry;
 
 import javax.validation.Valid;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -35,7 +36,7 @@ public class DataEntryController {
         binder.setValidator(dataEntryValidator);
     }
 
-    @RequestMapping(value = {"/dataentry", "/"})
+    @RequestMapping(value = {"/dataentry"})
     public ModelAndView insertData(ModelAndView modelAndView) {
         initModelAndView(new DataEntry(), modelAndView);
         return modelAndView;
@@ -43,13 +44,18 @@ public class DataEntryController {
 
     @RequestMapping(value = "/dataentry", method = RequestMethod.POST)
     public ModelAndView saveData(@Valid @ModelAttribute DataEntry dataEntry, Errors errors, RedirectAttributes ra, ModelAndView modelAndView) {
-
         initModelAndView(dataEntry, modelAndView);
         if (errors.hasErrors()) {
             return modelAndView;
         }
-
         dataEntryService.saveDataEntry(dataEntry);
+        DataEntry prevMonthData = dataEntryService.findPreviousMonthConsumption(dataEntry.getMonth(), dataEntry.getYear());
+        if (prevMonthData == null) {
+            errors.reject("error.no.data.for.previous.month");
+        } else {
+            dataEntry.calculateTotals();
+            modelAndView.addObject("previousMonthData", prevMonthData);
+        }
 
         return modelAndView;
     }

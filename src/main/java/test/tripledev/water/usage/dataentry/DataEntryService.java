@@ -1,5 +1,6 @@
 package test.tripledev.water.usage.dataentry;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,16 @@ public class DataEntryService {
     public void saveDataEntry(DataEntry dataEntry){
         dataEntry.setUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         dataEntryRepository.save(dataEntry);
+    }
+
+    public DataEntry findPreviousMonthConsumption(int month, int year){
+        LocalDate previousMonth = LocalDate.now().withMonthOfYear(month).withYear(year).minusMonths(1);
+        DataEntry previousMonthDataEntry = findByMonthAndYearAndUsername(
+                previousMonth.getMonthOfYear(), previousMonth.getYear(), SecurityContextHolder.getContext().getAuthentication().getName());
+        if (previousMonthDataEntry != null) {
+            previousMonthDataEntry.calculateTotals();
+        }
+        return previousMonthDataEntry;
     }
 
     public Map<String, DataEntry> findDataForAllUsersAndCalculateConsumption(int month, int year){
