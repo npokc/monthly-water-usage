@@ -8,9 +8,8 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 	
 	<security:http auto-config="true" disable-url-rewriting="true" use-expressions="true">
 		<security:csrf request-matcher-ref="csrfMatcher" />
-        <security:form-login login-page="/signin" authentication-failure-url="/signin?error=1" default-target-url="/signin"/>
+        <security:form-login login-page="/signin" authentication-failure-url="/signin?error=1" default-target-url="/dataentry"/>
 		<security:logout logout-url="/logout" />
-		<security:intercept-url pattern="/" access="permitAll" />
         <security:intercept-url pattern="/favicon.ico" access="permitAll" />
         <security:intercept-url pattern="/resources/**" access="permitAll" />
 		<security:intercept-url pattern="/signin" access="permitAll" />
